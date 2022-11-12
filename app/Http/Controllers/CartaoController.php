@@ -23,8 +23,10 @@ class CartaoController extends Controller
      */
     public function index()
     {
-        $cartaos = $this->cartao->all();
+        $user = auth()->user();        
 
+        $cartaos = $this->cartao->all();
+        $cartaos = Cartao::where('userId', '=', $user->id)->get();
         return view('/Restrito/cartaos/index', compact('cartaos'));      
     }
 

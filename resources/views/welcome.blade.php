@@ -75,7 +75,7 @@
             
             <footer class="mb-0 m-auto text-white-50" id="rodape">
                 <div class="container">
-                    <p>Cover template for <a href="https://getbootstrap.com/" class="text-white ">Bootstrap</a>, by <a href="https://twitter.com/mdo" class="text-white">@mdo</a>.</p>
+                    <p>Feito Por: Gabriel Inácio e Gustavo Módolo</p>
                 </div>
                 
             </footer>
