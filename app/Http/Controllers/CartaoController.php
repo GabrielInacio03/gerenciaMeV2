@@ -87,7 +87,7 @@ class CartaoController extends Controller
     public function edit($id)
     {
         $cartao = $this->cartao->getById($id);
-
+        
         return view('/Restrito/cartaos/edit', compact('cartao'));
     }
 

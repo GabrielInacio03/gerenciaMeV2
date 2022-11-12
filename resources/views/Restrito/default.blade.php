@@ -2,29 +2,31 @@
 @section('content')
 <div class="container-fluid">
     <div class="row">
-        <h1 class="h2">Dashboard</h1>
-        <p> </p>
+        <h3 class="h3 text-center">Dashboard</h3>        
     </div>
 </div>
 
 <div class="row">
     <div class="col-md-12">
         <div id="container-search" class="col-md-12">
-            <h3>Filtrar por suas despesas</h3>
+            <h5>Filtrar por:</h5>
             <form action="/Restrito/default" method="GET">
                 <div class="row">
-                    <div class="col-md-3 form-group">
-                        <input type="month" id="search" name="search" class="form-control" placeholder="Procure um Evento">
-                    </div>
-                    <div class="col-md-3 form-group">
-                        <select class="form-control" name="cartao_id" required>
-                            <option value="0">--- Selecione uma opção ---</option>
-                            @foreach($cartaos as $cartao)
-                                <option value="{{ $cartao->id }}">{{ $cartao->nome }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>                
+                    <div class="col-md-12" style="display: flex;">
+                        <div class="col-md-4">
+                            <input type="month" id="search" name="search" class="form-control" placeholder="Procure um Evento">
+                        </div>
+                        <div class="col-md-5 px-3">                            
+                            <select class="form-control" name="cartao_id" required>
+                                <option value="0">--- Selecione um Cartão ---</option>
+                                @foreach($cartaos as $cartao)
+                                    <option value="{{ $cartao->id }}">{{ $cartao->nome }}</option>
+                                @endforeach
+                            </select>
+                        </div>                        
+                    </div>                    
+                </div>        
+                <br>        
                 <button type="submit" class="btn btn-primary btn-sm" title="Pesquisar">Pesquisar</button>
             </form>
         </div>
@@ -34,7 +36,7 @@
 <br>
 <div class="card m-b-20">
     <div class="card-body">
-        <h4 class="mt-0 header-title mb-3">Balanço Mensal</h4>
+        <h6 class="mt-0 header-title mb-3">Balanço Mensal</h6>
         <hr>
         <div class="inbox-wid">
             <div class="inbox-item">

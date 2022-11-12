@@ -10,9 +10,13 @@ Route::get('/Restrito/default', 'HomeController@index')->middleware('auth');
 
 
 
+
+
+
 Route::resource('/Restrito/cartaos', 'CartaoController')->middleware('auth');
 Route::resource('/Restrito/despesas', 'DespesaController')->middleware('auth');
 Route::resource('/Restrito/receitas', 'ReceitaController')->middleware('auth');
+Route::resource('/Restrito/alteradados', 'AlterarDadosController')->middleware('auth');
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
