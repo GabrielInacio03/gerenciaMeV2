@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cartao;
 use App\Models\Despesa;
 use App\Repositories\Contracts\ICartaoRepository;
 use App\Repositories\Contracts\IDespesaRepository;
@@ -31,8 +32,25 @@ class DespesaController extends Controller
      */
     public function index()
     {
-        $despesas = $this->despesa->all();
+        
+        $user = auth()->user();        
+
+        $cartaos = Cartao::where('userId', '=', $user->id)->get();
+        $listaId = array();
+        foreach ($cartaos as $item) {
+            array_push($listaId, $item->id);
+        }
+        $listaEmString = implode(",", $listaId);
+        if(strlen($listaEmString > 0)){
+            $where = 'cartaoId in ('.$listaEmString.')';
+            $despesas = Despesa::whereRaw($where)->get();    
+        }else{
+            $despesas = null;
+        }
         $tipos = $this->tipo->all();
+
+       // dd($despesas);
+
         return view('/Restrito/despesas/index', compact('despesas','tipos'));
     }
 
@@ -43,7 +61,8 @@ class DespesaController extends Controller
      */
     public function create()
     {
-        $cartaos = $this->cartao->all();
+        $user = auth()->user();        
+        $cartaos = Cartao::where('userId', '=', $user->id)->get();
         $tipos = $this->tipo->all();
         return view('/Restrito/despesas/create', compact('cartaos','tipos'));
     }
@@ -96,7 +115,9 @@ class DespesaController extends Controller
     {
         $despesa = $this->despesa->getById($id);
         $tipos = $this->tipo->all();
-        $cartaos = $this->cartao->all();
+        
+        $user = auth()->user();        
+        $cartaos = Cartao::where('userId', '=', $user->id)->get();
 
         return view('/Restrito/despesas/edit', compact('despesa', 'cartaos', 'tipos'));
     }

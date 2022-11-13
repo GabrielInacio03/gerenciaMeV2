@@ -12,9 +12,9 @@
     @endif
     </div>
     <div class="card-body">
-        <label for="txtNome" class="form-label">{{ $user->name }}</label>
+        <label for="txtNome" class="form-label">Nome: {{ $user->name }}</label>
         <br>
-        <label for="txtEmail" class="form-label">{{ $user->email }}</label>
+        <label for="txtEmail" class="form-label">E-mail: {{ $user->email }}</label>
         <br>        
         <a href="{{ route('alteradados.edit', $user->id)}}" class="btn btn-primary mb-1">                            
                             <i class="bi bi-pencil-square"></i>Editar

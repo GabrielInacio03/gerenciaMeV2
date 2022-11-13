@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Receita;
+use App\Models\Cartao;
 use App\Repositories\Contracts\ICartaoRepository;
 use App\Repositories\Contracts\IReceitaRepository;
 use App\Repositories\Contracts\ITipoReceitaRepository;
@@ -27,7 +28,20 @@ class ReceitaController extends Controller
 
     public function index()
     {
-        $receitas = $this->receita->all();
+        $user = auth()->user();        
+
+        $cartaos = Cartao::where('userId', '=', $user->id)->get();
+        $listaId = array();
+        foreach ($cartaos as $item) {
+            array_push($listaId, $item->id);
+        }
+        $listaEmString = implode(",", $listaId);
+        if(strlen($listaEmString > 0)){
+            $where = 'cartaoId in ('.$listaEmString.')';
+            $receitas = Receita::whereRaw($where)->get();    
+        }else{
+            $receitas = null;
+        }
         $tipos = $this->tipo->all();
 
         return view('/Restrito/receitas/index', compact('receitas','tipos'));
@@ -40,7 +54,9 @@ class ReceitaController extends Controller
      */
     public function create()
     {
-        $cartaos = $this->cartao->all();
+        
+        $user = auth()->user();        
+        $cartaos = Cartao::where('userId', '=', $user->id)->get();
         $tipos = $this->tipo->all();
 
         return view('/Restrito/receitas/create', compact('cartaos','tipos'));
@@ -92,7 +108,9 @@ class ReceitaController extends Controller
     public function edit($id)
     {
         $receita = $this->receita->getById($id);
-        $cartaos = $this->cartao->all();
+        
+        $user = auth()->user();        
+        $cartaos = Cartao::where('userId', '=', $user->id)->get();
         $tipos = $this->tipo->all();
 
         return view('/Restrito/receitas/edit', compact('receita', 'cartaos','tipos'));

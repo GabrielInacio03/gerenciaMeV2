@@ -22,6 +22,7 @@
                 </tr>            
             </thead>
             <tbody> 
+                @if(isset($despesas))
                 @foreach($despesas as $despesa)                              
                 <tr>
                     <td class="col-md-1">{{$despesa->id}}</td>
@@ -42,6 +43,7 @@
                     </td>
                 </tr>
                 @endforeach
+                @endif
             </tbody>
         </table>
     </div>
