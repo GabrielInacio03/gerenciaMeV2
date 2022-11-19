@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\TipoDespesa;
 use App\Models\Despesa;
 use App\Models\Receita;
+use App\Models\Cartao;
 use DateTime;
 
 use App\Repositories\Contracts\ITipoDespesaRepository;
@@ -45,8 +46,10 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $cartaos = $this->cartao->all();
+     //   $cartaos = $this->cartao->all();
+        $user = auth()->user();        
 
+        $cartaos = Cartao::where('userId', '=', $user->id)->get();
         //variáveis para gráfico
         $tipos = [];
         $valores = [];
@@ -62,6 +65,7 @@ class HomeController extends Controller
         $search = $request->get('search');
                 
         //select e condição
+        
         $receitas = Receita::whereYear(
             'created_at','=', date('Y', strtotime($search)))
             ->whereMonth('created_at','=', date('m', strtotime($search)))
