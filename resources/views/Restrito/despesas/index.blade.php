@@ -18,6 +18,7 @@
                     <th class="col-md-4">Descrição</th>
                     <th class="col-md-3">Tipo</th>
                     <th class="col-md-2">Valor</th>
+                    <th>Data de Cadastro</th>
                     <th class="col-md-2">Ações</th>
                 </tr>            
             </thead>
@@ -29,6 +30,7 @@
                     <td class="col-md-4">{{$despesa->descricao}}</td>
                     <td class="col-md-3">{{$despesa->tipoDespesa->nome}}</td>
                     <td class="col-md-2">- R${{$despesa->valor}}</td>
+                    <td class="col-md-2">{{ date("d/m/Y", strtotime($despesa->created_at))}}</td>
                     <td class="col-md-2">
                         <a href="{{ route('despesas.edit', $despesa->id) }}" class="btn btn-primary mb-1">
                             <i class="bi bi-pencil-square"></i>

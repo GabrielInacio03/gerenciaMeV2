@@ -18,16 +18,19 @@
                     <th class="col-md-4">Descrição</th>
                     <th class="col-md-3">Tipo</th>
                     <th class="col-md-2">Valor</th>
+                    <th class="col-md-2">Data de Cadastro</th>
                     <th class="col-md-2">Ações</th>
                 </tr>            
             </thead>
             <tbody> 
+            @if(isset($receitas))
                 @foreach($receitas as $receita)                              
                 <tr>
                     <td class="col-md-1">{{$receita->id}}</td>
                     <td class="col-md-4">{{$receita->descricao}}</td>
                     <td class="col-md-3">{{$receita->tipoReceita->nome}}</td>
                     <td class="col-md-2">R${{$receita->valor}}</td>
+                    <td class="col-md-2">{{ date("d/m/Y", strtotime($receita->created_at))}}</td>
                     <td class="col-md-2">
                         <a href="{{ route('receitas.edit', $receita->id) }}" class="btn btn-primary mb-1">
                             <i class="bi bi-pencil-square"></i>
@@ -42,6 +45,7 @@
                     </td>
                 </tr>
                 @endforeach
+            @endif
             </tbody>
         </table>
     </div>
